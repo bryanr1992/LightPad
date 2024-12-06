@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>F:\C++\LightPad\$bin\x64\Debug\LightPad.exe</FullPath>
+      <FullPath>F:\C++\LightPad\bin\x64\Debug\LightPad.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
