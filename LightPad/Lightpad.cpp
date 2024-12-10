@@ -7,7 +7,6 @@
 #include <codecvt> // for wstr conversions
 #include "TextView.h"
 #include "resource.h"
-#include <iostream>
 
 
 std::array<TCHAR, MAX_PATH> szFileName{};
@@ -121,7 +120,7 @@ void InitMainWnd()
     wcx.hbrBackground = nullptr;
     wcx.lpszMenuName = MAKEINTRESOURCE(IDR_MENU1);
     wcx.lpszClassName = APP_TITLE;
-    wcx.hIcon = static_cast<HICON>(LoadImage(wcx.hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 32, 32, LR_CREATEDIBSECTION));
+    wcx.hIcon = static_cast<HICON>(LoadImage(wcx.hInstance, MAKEINTRESOURCE(IDI_ICON2), IMAGE_ICON, 32, 32, LR_CREATEDIBSECTION));
     wcx.hIconSm = static_cast<HICON>(LoadImage(wcx.hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, LR_CREATEDIBSECTION));
 
     RegisterClassEx(&wcx);
