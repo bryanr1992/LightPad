@@ -58,7 +58,10 @@ void SetWindowFileName(HWND hwnd, LPCTSTR szFileName)
     SetWindowText(hwnd, title.c_str());
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(_In_ HWND hwnd, 
+                         _In_ UINT msg, 
+                         _In_ WPARAM wParam, 
+                         _In_ LPARAM lParam)
 {
     static int width, height;
 
@@ -107,10 +110,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
-void InitMainWnd()
+int InitMainWnd()
 {
     WNDCLASSEX wcx = {};
-    wcx.cbSize = sizeof(wcx);
+    wcx.cbSize = sizeof(WNDCLASSEX);
     wcx.style = 0;
     wcx.lpfnWndProc = WndProc;
     wcx.cbClsExtra = 0;
@@ -123,7 +126,19 @@ void InitMainWnd()
     wcx.hIcon = static_cast<HICON>(LoadImage(wcx.hInstance, MAKEINTRESOURCE(IDI_ICON2), IMAGE_ICON, 32, 32, LR_CREATEDIBSECTION));
     wcx.hIconSm = static_cast<HICON>(LoadImage(wcx.hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, LR_CREATEDIBSECTION));
 
-    RegisterClassEx(&wcx);
+    if (!RegisterClassEx(&wcx))
+    {
+        MessageBox(NULL,
+            _T("Call to RegisterClassEx failed!"),
+            _T("Windows Desktop Guided Tour"),
+            NULL);
+
+        return 0;
+    }
+
+    return 1;
+
+    //RegisterClassEx(&wcx);
 }
 
 HWND CreateMainWnd()
@@ -133,7 +148,10 @@ HWND CreateMainWnd()
         nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
 }
 
-int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR lpCmdLine, int iShowCmd)
+int WINAPI WinMain(_In_ HINSTANCE hInst, 
+                   _In_opt_ HINSTANCE hPrev, 
+                   _In_ LPSTR lpCmdLine, 
+                   _In_ int iShowCmd)
 {
     MSG msg;
     HACCEL hAccel;
