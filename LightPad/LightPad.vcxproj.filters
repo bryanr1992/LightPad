@@ -24,12 +24,18 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TextDocumentInternal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Lightpad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextDocument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

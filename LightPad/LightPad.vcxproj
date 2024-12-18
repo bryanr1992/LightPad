@@ -148,11 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="TextDocumentInternal.h" />
     <ClInclude Include="TextView.h" />
     <ClInclude Include="TextViewInternal.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Lightpad.cpp" />
+    <ClCompile Include="TextDocument.cpp" />
     <ClCompile Include="TextView.cpp" />
   </ItemGroup>
   <ItemGroup>

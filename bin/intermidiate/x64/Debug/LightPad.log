@@ -1,2 +1,3 @@
-﻿  TextView.cpp
-  LightPad.vcxproj -> F:\C++\LightPad\bin\x64\Debug\LightPad.exe
+﻿  TextDocument.cpp
+TextDocument.obj : error LNK2019: unresolved external symbol "private: bool __cdecl TextDocument::init_linebuffer(void)" (?init_linebuffer@TextDocument@@AEAA_NXZ) referenced in function "public: bool __cdecl TextDocument::init(void *)" (?init@TextDocument@@QEAA_NPEAX@Z)
+F:\C++\LightPad\bin\x64\Debug\LightPad.exe : fatal error LNK1120: 1 unresolved externals
