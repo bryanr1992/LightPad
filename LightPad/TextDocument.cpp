@@ -70,12 +70,12 @@ bool TextDocument::init_linebuffer()
 		{
 			if (m_buffer[i] == '\n') { i++; }
 
-			m_linebuffer[numlines++] = linestart;
+			m_linebuffer[m_numlines++] = linestart;
 			linestart = i;
 		}
 	}
 
-	m_linebuffer[numlines++] = lenght;
+	m_linebuffer[m_numlines++] = m_length;
 	return true;
 }
 

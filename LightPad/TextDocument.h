@@ -16,8 +16,8 @@ public:
 
 private:
 	bool init_linebuffer();
-	char* buffer;
-	ULONG m_linebuffer;
+	char* m_buffer;
+	ULONG* m_linebuffer;
 	int m_numlines;
-	int m_length;
+	unsigned int m_length;
 };
