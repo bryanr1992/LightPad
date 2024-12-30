@@ -8,7 +8,9 @@
 TextDocument::TextDocument()
 {
 	m_buffer = 0;
+	m_linebuffer = 0;
 	m_length = 0;
+	m_numlines = 0;
 }
 
 /*
@@ -36,7 +38,7 @@ bool TextDocument::init(HANDLE hFile)
 	if ((m_length = GetFileSize(hFile, 0)) == 0) { return false; }
 
 	// allocate a new buffer for the file
-	if ((m_buffer = new char[m_length]) == 0) { return false; }
+	if ((m_buffer = new char[m_length]) == nullptr) { return false; }
 
 	// read file into memory
 	//Not a smart way to load file into mem, but we will improve this when I know how
@@ -54,6 +56,26 @@ bool TextDocument::init(HANDLE hFile)
 */
 bool TextDocument::init_linebuffer()
 {
+	ULONG i = 0;
+	ULONG linestart = 0;
+
+	if ((m_linebuffer = new ULONG[m_length]) == nullptr) { return false; }
+
+	m_numlines = 0;
+
+	//Loop through every byte of data in the file (our m_buffer)
+	for (; i < m_length;)
+	{
+		if (m_buffer[i++] == '\r')
+		{
+			if (m_buffer[i] == '\n') { i++; }
+
+			m_linebuffer[numlines++] = linestart;
+			linestart = i;
+		}
+	}
+
+	m_linebuffer[numlines++] = lenght;
 	return true;
 }
 
