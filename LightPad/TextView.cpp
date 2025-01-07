@@ -7,20 +7,86 @@
 //
 
 #include <windows.h>
+#include <tchar.h>
 #include <string>       // For std::string
 #include <cwchar>  // For std::mbstowcs
 #include "TextView.h"
 #include "TextViewInternal.h"
 
 
+//
+//    Constructor for TextView class
+//
 
-
-
+TextView::TextView(HWND hwnd)
+{
+    m_hWnd = hwnd;
+    m_nFontHeight = 0;
+    m_pTextDoc = new TextDocument();
+}
 
 //
-// Painting procedure for TextView objects
+//    Destructor for TextView class
 //
-LRESULT WINAPI TextView::OnPaint() noexcept
+TextView::~TextView()
+{
+    m_nFontHeight = 0;
+}
+
+//
+//    Drawing and Painting logic for out TextView centered around WM_PAINT
+//
+
+ULONG TextView::OnPaint()
+{
+    PAINTSTRUCT ps;
+
+    BeginPaint(m_hWnd, &ps);
+
+    ULONG first;
+    ULONG last;
+    ULONG i;
+
+    //Find out which lines to draw
+    first = ps.rcPaint.top / m_nFontHeight;
+    last = ps.rcPaint.bottom / m_nFontHeight;
+
+    for (i = first; i <= last; i++)
+    {
+        PaintLine(ps.hdc, i);
+    }
+
+    //paint
+    EndPaint(m_hWnd, &ps);
+    return 0;
+}
+
+LONG TextView::PaintLine(HDC hdc, ULONG nLineNo)
+{
+    TCHAR buf[LONGEST_LINE];
+    ULONG len;
+
+    RECT rect;
+    GetClientRect(m_hWnd, &rect);
+
+    //check where the line should be drawn
+    rect.top = nLineNo * m_nFontHeight;
+    rect.bottom = rect.top + m_nFontHeight;
+
+    // get the data for this line of text
+    len = m_pTextDoc->getline(nLineNo, buf, LONGEST_LINE);
+
+    // draw text and erase the line background
+    ExtTextOut(hdc, 0, 0, ETO_OPAQUE, &rect, 0, 0, 0);
+
+    return 0;
+}
+
+//
+// Painting procedure for TextView objects <TEMPLATE>
+//
+/*
+LRESULT WINAPI TextView::OnPaint()
 {
     PAINTSTRUCT ps;
     RECT rect;
@@ -40,6 +106,7 @@ LRESULT WINAPI TextView::OnPaint() noexcept
 
     return 0;
 }
+*/
 
 //
 // Win32 TextView window procedure.
