@@ -33,7 +33,7 @@ bool TextDocument::init(TCHAR* filename)
 
 bool TextDocument::init(HANDLE hFile)
 {
-	ULONG numread;
+	ULONG numread; 
 
 	if ((m_length = GetFileSize(hFile, 0)) == 0) { return false; }
 
@@ -77,6 +77,30 @@ bool TextDocument::init_linebuffer()
 
 	m_linebuffer[m_numlines++] = m_length;
 	return true;
+}
+
+//Takes a line numer to retrieve
+ULONG TextDocument::getline(ULONG lineno, char* buf, size_t len)
+{
+	char* lineptr;
+	ULONG linelen;
+
+	//locate the start of the specified line
+	lineptr = m_buffer + m_linebuffer[lineno];
+
+	//find the lenght of the line by subtracting "how long the current line is" 
+	//we look that up in the next position of our line buffer as the next position will have the
+	//value of where the previous line (the line we want to find the length of) finishes
+	// minus the value of the start of the current line
+	//TLDR subtract next line's offset from the current line's
+	linelen = m_linebuffer[lineno + 1] - m_linebuffer[lineno];
+
+	//Make sure we do not overflow caller's buffer
+	linelen = min(len, linelen);
+
+	memcpy(buf, lineptr, linelen);
+
+	return linelen;
 }
 
 /*

@@ -1,2 +1,3 @@
 ﻿  TextDocument.cpp
+F:\C++\LightPad\LightPad\TextDocument.cpp(99,12): warning C4267: '=': conversion from 'size_t' to 'ULONG', possible loss of data
   LightPad.vcxproj -> F:\C++\LightPad\bin\x64\Debug\LightPad.exe
