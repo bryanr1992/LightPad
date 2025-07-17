@@ -147,15 +147,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\TextView\TextDocument.h" />
+    <ClInclude Include="..\TextView\TextView.h" />
+    <ClInclude Include="..\TextView\TextViewInternal.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="TextDocument.h" />
-    <ClInclude Include="TextView.h" />
-    <ClInclude Include="TextViewInternal.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\TextView\TextDocument.cpp" />
+    <ClCompile Include="..\TextView\TextView.cpp" />
+    <ClCompile Include="..\TextView\TextViewFile.cpp" />
+    <ClCompile Include="..\TextView\TextViewPaint.cpp" />
     <ClCompile Include="Lightpad.cpp" />
-    <ClCompile Include="TextDocument.cpp" />
-    <ClCompile Include="TextView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

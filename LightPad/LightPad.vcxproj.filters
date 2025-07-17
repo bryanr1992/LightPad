@@ -15,27 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextView.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextViewInternal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextDocument.h">
+    <ClInclude Include="..\TextView\TextDocument.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TextView\TextView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TextView\TextViewInternal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TextView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Lightpad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextDocument.cpp">
+    <ClCompile Include="..\TextView\TextDocument.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TextView\TextView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TextView\TextViewPaint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TextView\TextViewFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

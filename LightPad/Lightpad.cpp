@@ -5,7 +5,7 @@
 #include <array>      // For fixed-size arrays
 #include <locale> // for wstr conversions
 #include <codecvt> // for wstr conversions
-#include "TextView.h"
+#include "..\TextView\TextView.h"
 #include "resource.h"
 
 
