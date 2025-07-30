@@ -122,7 +122,9 @@ LRESULT WINAPI TextViewWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
     case WM_SETFONT:
         return ptv->OnSetFont((HFONT)wParam);
 
-        //
+    case WM_SIZE:
+        return ptv->OnSize(wParam, LOWORD(lParam), HIWORD(lParam));
+
     case TXM_OPENFILE:
         return ptv->OpenFile((TCHAR*)lParam);
 

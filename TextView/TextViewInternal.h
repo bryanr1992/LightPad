@@ -18,6 +18,7 @@ public:
 
     LONG OnPaint();
     LONG OnSetFont(HFONT hFont);
+    LONG OnSize(UINT nFlags, int width, int height);
 
     LONG OpenFile(TCHAR* szFileName);
     LONG ClearFile();
@@ -29,24 +30,45 @@ private:
     //
 
     void PaintLine(HDC hdc, ULONG line);
+    void RefreshWindow();
     void TabbedExtTextOut(HDC hdc, RECT* rect, TCHAR* buf, int len);
 
     COLORREF GetTextViewColor(UINT idx);
+
+    VOID SetupScrollbars();
+    bool PinToBottomCorner();
 
     HWND m_hWnd;
     //--------------------------------------------------
 
 
-    int x = 0;  // Initialized directly for better clarity
+    //int x = 0;  // Initialized directly for better clarity
 
     // Font related data
     HFONT m_hFont;
     int m_nFontWidth;
     int m_nFontHeight;
 
+    // Scrollbar related data
+    // 
+    //H/V scroll bar thumb pos
+    ULONG m_nVScrollPos;
+    int m_nHScrollPos;
+
+    //H/V max scroll bar thumb position (Not the maximum number of lines in the file)
+    ULONG m_nVScrollMax;
+    int m_nHScrollMax;
+
+    //Maximum horizontal scrolling extend. Also together with m_nLinecount we can represent the width and height of the client ares
+    int m_nLongestLine;
+
+    //Width and height of client area
+    int m_nWindowLines;
+    int m_nWindowColumns;
+
     //------------------------------
     // File structure related data
-    ULONG m_nLineCount;
+    ULONG m_nLineCount;// holds the amounts of lines drawn or that our doc currently has
 
     TextDocument* m_pTextDoc;
 };

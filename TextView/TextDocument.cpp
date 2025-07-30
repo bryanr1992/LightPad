@@ -21,6 +21,7 @@ TextDocument::~TextDocument()
 	clear();
 }
 
+// Init method for the text doc
 bool TextDocument::init(char* filename)
 {
 	HANDLE hFile;
@@ -31,6 +32,7 @@ bool TextDocument::init(char* filename)
 	return init(hFile);
 }
 
+// Helper function that uses the HANDLE returned by CreateFile
 bool TextDocument::init(HANDLE hFile)
 {
 	ULONG numread; 
@@ -116,25 +118,34 @@ ULONG TextDocument::linecount()
 * Return length of longest line
 */
 
-ULONG TextDocument::longestline()
+ULONG TextDocument::longestline(int tabwidth)
 {
-	ULONG i, len;
+	ULONG i;
+	ULONG xpos = 0;
 	ULONG longest = 0;
 
 	// use linebuffer to work out which line is the longest line
 
-	for (i = 0; i < m_numlines; i++)
+	for (i = 0; i < m_length; i++)
 	{
-		len = m_linebuffer[i + 1] - m_linebuffer[i];
+		if (m_buffer[i] == '\r')
+		{
+			if (m_buffer[i + 1] == '\n') { i++; }
 
-		// don't include carriage returns
-		if (m_buffer[m_linebuffer[i + 1] - 1] == '\n') len--;
-		if (m_buffer[m_linebuffer[i + 1] - 2] == '\r') len--;
-
-		longest = max(longest, len);
+			longest = max(longest, xpos);
+			xpos = 0;
+		}
+		else if (m_buffer[i] == '\t')
+		{
+			xpos += tabwidth - (xpos % tabwidth);
+		}
+		else {
+			xpos++;
+		}
 
 	}
 
+	longest = max(longest, xpos);
 	return longest;
 }
 

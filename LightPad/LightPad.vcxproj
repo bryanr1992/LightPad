@@ -157,6 +157,7 @@
     <ClCompile Include="..\TextView\TextView.cpp" />
     <ClCompile Include="..\TextView\TextViewFile.cpp" />
     <ClCompile Include="..\TextView\TextViewPaint.cpp" />
+    <ClCompile Include="..\TextView\TextViewScroll.cpp" />
     <ClCompile Include="Lightpad.cpp" />
   </ItemGroup>
   <ItemGroup>

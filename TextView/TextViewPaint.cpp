@@ -9,7 +9,14 @@
 #include "TextViewInternal.h"
 #include <stdexcept>
 
+/*
+*  Perform full redraw of the entire window
+*/
 
+VOID TextView::RefreshWindow()
+{
+	InvalidateRect(m_hWnd, NULL, FALSE);
+}
 /*
 * Painting proc for TextView Object
 */
@@ -80,9 +87,13 @@ LONG TextView::OnPaint()
 
     SelectObject(hdc, m_hFont);
 
-    first = ps.rcPaint.top / m_nFontHeight;
-    last = ps.rcPaint.bottom / m_nFontHeight;
+    /*
+	* We divide by font height to convert from pixels to logical lines
+	*/
+	first = m_nVScrollPos + ps.rcPaint.top / m_nFontHeight;
+    last = m_nVScrollPos + ps.rcPaint.bottom / m_nFontHeight;
 
+	// This if is in case the window is too small... no line to paint
     if (last < first) { last = -1; }
 
     for (i = first; i <= last; i++)
@@ -126,13 +137,14 @@ void TextView::PaintLine(HDC hdc, ULONG nLineNo)
 	int len;
 
 
-	// Get the area we want to update
+	// Get the area we want to update **USE CLIENT AREA AS STARTING POINT** It will be stored on rect
 	GetClientRect(m_hWnd, &rect); // From WINAPI
 
-	// compute rect for entire length of line in the window
-	rect.top = nLineNo * m_nFontHeight;
-	rect.bottom = rect.top + m_nFontHeight;
-	return;
+	// Calculate rectangle for the entire length of the line in window
+	rect.left = (long)(-m_nHScrollPos * m_nFontWidth);
+	rect.top = (long)((nLineNo - m_nVScrollPos) * m_nFontHeight);
+	rect.right = (long)(rect.right);
+	rect.bottom = (long)(rect.top + m_nFontHeight);
 
 	// Check that we have data/text to draw on this line
 
@@ -150,7 +162,7 @@ void TextView::PaintLine(HDC hdc, ULONG nLineNo)
 	SetTextColor(hdc, GetTextViewColor(HVC_FOREGROUND));
 	SetBkColor(hdc, GetTextViewColor(HVC_BACKGROUND));
 
-	// Draw the text and fill line bg at the same time
+	// Draw the text and fill line bg at the same time  Also erases BG NOT TAKEN BY ACTUAL TEXT
 	TabbedExtTextOut(hdc, &rect, buf, len);
 }
 

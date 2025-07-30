@@ -13,7 +13,7 @@ public:
 
 	ULONG getline(ULONG lineno, char* buf, size_t len);
 	
-	ULONG longestline();
+	ULONG longestline(int tabwidth);
 	ULONG linecount();
 
 private:
