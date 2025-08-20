@@ -93,3 +93,55 @@ LONG TextView::OnSize(UINT nFlags, int width, int height)
 
 	return 0;
 }
+
+/*
+* Handling V scrolling
+*/
+
+LONG TextView::OnVScroll(UINT nSBCode, UINT nPos)
+{
+	ULONG oldpos = m_nVScrollPos;
+
+	switch (nSBCode)
+	{
+	case SB_TOP:
+		m_nVScrollPos = 0;
+		RefreshWindow();
+		break;
+
+	case SB_BOTTOM:
+		m_nVScrollPos = m_nVScrollMax;
+		RefreshWindow();
+		break;
+
+	case SB_LINEUP:
+		Scroll(0, -1);//TODO: IMPLEMENT THIS METHOD
+		break;
+
+	case SB_LINEDOWN:
+		Scroll(0, 1);
+		break;
+
+	case SB_PAGEDOWN:
+		Scroll(0, m_nWindowLines);
+		break;
+
+	case SB_PAGEUP:
+		Scroll(0, -m_nWindowLines);
+		break;
+
+	case SB_THUMBPOSITION:
+	case SB_THUMBTRACK:
+
+		m_nVScrollPos = GetTrackPos32(m_hWnd, SB_VERT);//TODO: Implement GetTrackPos32
+		RefreshWindow();
+		break;
+	}
+
+	if (oldpos != m_nVScrollPos)
+	{
+		SetupScrollbars();
+	}
+
+	return 0;
+}

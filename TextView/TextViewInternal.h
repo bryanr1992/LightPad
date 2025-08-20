@@ -20,6 +20,8 @@ public:
     LONG OnSetFont(HFONT hFont);
     LONG OnSize(UINT nFlags, int width, int height);
 
+    LONG OnVScroll(UINT nSBCode, UINT nPos);
+
     LONG OpenFile(TCHAR* szFileName);
     LONG ClearFile();
 

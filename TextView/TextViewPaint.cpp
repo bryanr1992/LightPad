@@ -90,7 +90,7 @@ LONG TextView::OnPaint()
     /*
 	* We divide by font height to convert from pixels to logical lines
 	*/
-	first = m_nVScrollPos + ps.rcPaint.top / m_nFontHeight;
+	first = m_nVScrollPos + ps.rcPaint.top / m_nFontHeight; // Accounting for m_nVScrollPos to so that lines move up the display
     last = m_nVScrollPos + ps.rcPaint.bottom / m_nFontHeight;
 
 	// This if is in case the window is too small... no line to paint
