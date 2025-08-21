@@ -95,6 +95,70 @@ LONG TextView::OnSize(UINT nFlags, int width, int height)
 }
 
 /*
+* Scroll the viewport in the correct direction
+*/
+VOID TextView::Scroll(int dx, int dy)
+{
+	//Make sure we don't go past the edges of the doc
+
+	//scroll up/down
+	//up
+	if (dy < 0)
+	{
+		dy = -(int)min((ULONG)-dy, m_nVScrollPos);
+	}
+	//down
+	else if (dy > 0)
+	{
+		dy = min((ULONG)dy, m_nVScrollMax - m_nVScrollPos);
+	}
+
+	//scroll left/right
+	if (dx < 0)
+	{
+		dx = -(int)min(-dx, m_nHScrollPos);
+	}
+	//right
+	else if (dx > 0)
+	{
+		dx = min((unsigned)dx, (unsigned)m_nHScrollMax - m_nHScrollPos);
+	}
+
+	//adjust sBar Thumb Pos
+	m_nHScrollPos += dx;
+	m_nVScrollPos += dy;
+
+	// Here is where we actually scroll
+
+	if (dx != 0 || dy != 0)
+	{
+		ScrollWindowEx(
+			m_hWnd,
+			-dx * m_nFontWidth,
+			-dy * m_nFontHeight,
+			NULL,
+			NULL,
+			0, 0, SW_INVALIDATE
+		);
+
+		SetupScrollbars();
+	}
+	/*
+	* NOTE TO SELF:
+	* we have -dx -dy here because these represent the direction that the thumb is going to go
+	* for example say we scroll down. In this case the viewport goes up which means our dy values is positive
+	* however the scroll bar or thumb actually goes down, which means we should take the opposite of that dy.
+	* Same principle applies to dx
+	*/
+}
+
+LONG GetTrackPos32(HWND hwnd, int nBar)
+{
+	SCROLLINFO si = { sizeof(si), SIF_TRACKPOS };
+	GetScrollInfo(hwnd, nBar, &si);
+	return si.nTrackPos;
+}
+/*
 * Handling V scrolling
 */
 

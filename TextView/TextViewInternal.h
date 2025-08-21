@@ -37,6 +37,7 @@ private:
 
     COLORREF GetTextViewColor(UINT idx);
 
+    void Scroll(int dx, int dy);
     VOID SetupScrollbars();
     bool PinToBottomCorner();
 

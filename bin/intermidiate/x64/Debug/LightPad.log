@@ -1,6 +1,2 @@
 ﻿  TextViewScroll.cpp
-F:\C++\LightPad\TextView\TextViewScroll.cpp(118,3): error C3861: 'Scroll': identifier not found
-F:\C++\LightPad\TextView\TextViewScroll.cpp(122,3): error C3861: 'Scroll': identifier not found
-F:\C++\LightPad\TextView\TextViewScroll.cpp(126,3): error C3861: 'Scroll': identifier not found
-F:\C++\LightPad\TextView\TextViewScroll.cpp(130,3): error C3861: 'Scroll': identifier not found
-F:\C++\LightPad\TextView\TextViewScroll.cpp(136,19): error C3861: 'GetTrackPos32': identifier not found
+  LightPad.vcxproj -> F:\C++\LightPad\bin\x64\Debug\LightPad.exe
